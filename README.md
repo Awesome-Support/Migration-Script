@@ -1,2 +1,3 @@
-# Migration-Script-v2
-Migration script to upgrade from version 2 to version 3
+# Awesome Support Migration Script
+
+This script is intended for people using version 2.x and wanting to upgrade to the latest version.
