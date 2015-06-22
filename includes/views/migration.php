@@ -90,7 +90,7 @@
 			<li>Click the button bellow</li>
 		</ol>
 		<?php if ( ! defined( 'WPAS_VERSION' ) || version_compare( WPAS_VERSION, '3.0.0', '<' ) ) {
-			echo '<p>You need to have Awesome Support version 3 or higher installed in order to migrate your data. <a href="https://wordpress.org/plugins/awesome-support/">Please download the latest version from WordPress.org</a></p>';
+			echo '<p>You need to have Awesome Support version 3 or higher installed in order to migrate your data. <a href="' . esc_url( add_query_arg( array( 'tab' => 'plugin-information', 'plugin' => 'awesome-support', 'TB_iframe' => 'true', 'width' => '800', 'height' => '600' ), admin_url( 'plugin-install.php' ) ) ) .'" class="thickbox">install it from your dashboard</a></p>';
 		} else { ?>
 			<a href="<?php echo add_query_arg( array( 'page' => 'wpas-upgrade', 'do' => 'upgrade', '_nonce' => wp_create_nonce( 'upgrade' ) ), admin_url( 'tools.php' ) ); ?>" class="button-primary" onclick="return confirm( 'Did you backup your database before clicking this button?\n\nIf you do not backup your database we cannot be held responsible for any loss of data resulting from a migration error.' );">Upgrade</a>
 		<?php }
