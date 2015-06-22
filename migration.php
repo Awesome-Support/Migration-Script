@@ -47,6 +47,19 @@ function asm_migrate_page() {
 	require_once( ASM_PATH . 'includes/views/migration.php' );
 }
 
+add_action( 'admin_print_scripts', 'asm_load_scripts' );
+/**
+ * Load the plugin script.
+ *
+ * @since  1.0.0
+ * @return bool    Whether or not the script was enqueued
+ */
+function asm_load_scripts() {
+
+	wp_enqueue_script( 'asm_migration', ASM_URL . 'migration.js', array( 'jquery' ), ASM_VERSION, true );
+
+}
+
 /**
  * Everything that happens now must be limited to the upgrade page only.
  */
