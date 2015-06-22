@@ -24,7 +24,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'ASM_VERSION', '3.1.2' );
+define( 'ASM_VERSION', '0.1.0' );
 define( 'ASM_URL',     trailingslashit( plugin_dir_url( __FILE__ ) ) );
 define( 'ASM_PATH',    trailingslashit( plugin_dir_path( __FILE__ ) ) );
 
