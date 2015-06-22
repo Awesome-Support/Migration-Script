@@ -356,7 +356,7 @@ class WPAS_Migrate_Ticket extends WPAS_Migrate_Tickets  {
 						delete_post_meta( $this->ticket_id, $old, $value );
 						$this->increment_custom_fields();
 					} else {
-						$this->error( sprintf( 'Can&#039;t migrate custom field %s for ticket %d', $custom_field['name'], $this->ticket_id ) );
+						$this->error( sprintf( 'Can&#039;t migrate custom field %s for ticket %d', "<code>{$custom_field['name']}</code>", $this->ticket_id ) );
 					}
 				}
 
