@@ -271,7 +271,7 @@ class WPAS_Migrate_Tickets {
 		if ( $status ) {
 
 			$link    = add_query_arg( array( 'post' => $post_id, 'action' => 'edit' ), admin_url( 'post.php' ) );
-			$message = sprintf( 'Success migrating ticket %s', "<a href='$link'>#$post_id</a>" );
+			$message = sprintf( 'Success migrating ticket %s', "<a href='$link' target='_blank'>#$post_id</a>" );
 
 		} else {
 			$message = empty( $errors ) ? sprintf( 'Failed migrating ticket #%d', $post_id ) : sprintf( 'Failed migrating ticket #%d (%s)', $post_id, implode( ', ', $errors ) );
