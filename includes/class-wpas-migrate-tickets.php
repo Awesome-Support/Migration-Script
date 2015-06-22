@@ -5,6 +5,7 @@ class WPAS_Migrate_Tickets {
 	protected $converted_tickets     = 0;
 	protected $converted_replies     = 0;
 	protected $converted_attachments = 0;
+	protected $converted_cf          = 0;
 	protected $conversion_errors     = 0;
 	protected $errors                = array();
 
@@ -18,7 +19,7 @@ class WPAS_Migrate_Tickets {
 		 *
 		 * @param integer Number of tickets to process at once
 		 */
-		$this->limit = apply_filters( 'wpas_migration_script_processing_limit', 300 );
+		$this->limit = apply_filters( 'wpas_migration_script_processing_limit', 200 );
 
 		$args = array(
 			'post_type'      => 'tickets',
@@ -54,6 +55,10 @@ class WPAS_Migrate_Tickets {
 			$_SESSION['as']['converted_attachments'] = 0;
 		}
 
+		if ( ! isset( $_SESSION['as']['converted_cf'] ) ) {
+			$_SESSION['as']['converted_cf'] = 0;
+		}
+
 		if ( ! isset( $_SESSION['as']['current_page'] ) ) {
 			$_SESSION['as']['current_page'] = 1;
 		}
@@ -76,6 +81,10 @@ class WPAS_Migrate_Tickets {
 		++$_SESSION['as']['converted_attachments'];
 	}
 
+	protected function increment_custom_fields() {
+		++$_SESSION['as']['converted_cf'];
+	}
+
 	protected function increment_current_page() {
 		++$_SESSION['as']['current_page'];
 	}
@@ -94,6 +103,10 @@ class WPAS_Migrate_Tickets {
 
 	public function get_converted_attachments_count() {
 		return isset( $_SESSION['as']['converted_attachments'] ) ? $_SESSION['as']['converted_attachments'] : 0;
+	}
+
+	public function get_converted_custom_fields() {
+		return isset( $_SESSION['as']['converted_cf'] ) ? $_SESSION['as']['converted_cf'] : 0;
 	}
 
 	public function get_errors_count() {
@@ -155,7 +168,7 @@ class WPAS_Migrate_Tickets {
 			if ( $this->get_converted_tickets_count() === $this->get_tickets_total() && $this->get_current_page() >= ceil( $this->get_tickets_total() / $this->limit ) ) {
 
 				/* Show the final result */
-				printf( '<div class="wpas-migration-final-result"><p>Migration done with the following results: %d tickets converted, %d replies, %d attachments</p></div>', $this->get_converted_tickets_count(), $this->get_converted_replies_count(), $this->get_converted_attachments_count() );
+				printf( '<div class="wpas-migration-final-result"><p>Migration done with the following results: %d tickets converted, %d replies, %d attachments, %d custom fields</p></div>', $this->get_converted_tickets_count(), $this->get_converted_replies_count(), $this->get_converted_attachments_count(), $this->get_converted_custom_fields() );
 				echo '<p>You can now delete this migration plugin and start using Awesome Support version 3.</p>';
 
 				/* Clear the session */
