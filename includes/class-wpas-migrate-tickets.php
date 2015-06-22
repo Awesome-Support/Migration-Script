@@ -19,7 +19,7 @@ class WPAS_Migrate_Tickets {
 		 *
 		 * @param integer Number of tickets to process at once
 		 */
-		$this->limit = apply_filters( 'wpas_migration_script_processing_limit', 200 );
+		$this->limit = apply_filters( 'wpas_migration_script_processing_limit', 80 );
 
 		$args = array(
 			'post_type'      => 'tickets',
