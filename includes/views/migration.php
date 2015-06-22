@@ -55,9 +55,9 @@
 				$custom_field['required'] = true === $custom_field['required'] ? 'true' : 'false';
 
 				echo "wpas_add_custom_field( '{$custom_field['name']}', array(
-	'callback'    => '{$custom_field['callback']}',
-	'placeholder' => '{$custom_field['label']}',
-	'required'    => {$custom_field['required']}
+	'callback' => '{$custom_field['callback']}',
+	'title'    => '{$custom_field['label']}',
+	'required' => {$custom_field['required']}
 ) );\n\n";
 			}
 
@@ -66,6 +66,7 @@
 				$custom_taxonomy['required'] = true === $custom_taxonomy['required'] ? 'true' : false;
 
 				echo "wpas_add_custom_taxonomy( '{$custom_taxonomy['singular']}', array(
+	'title'    => '{$custom_taxonomy['label']}',
 	'label'    => '{$custom_taxonomy['label']}',
 	'singular' => '{$custom_taxonomy['singular']}',
 	'plural'   => '{$custom_taxonomy['plural']}',
