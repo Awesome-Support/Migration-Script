@@ -82,7 +82,7 @@
 		}
 		?>
 
-		<h3>Step 2: Awesome Support Migration</h3>
+		<h3>Step 2: Database Upgrade</h3>
 		<ol>
 			<li><strong>Backup your database</strong> (don&#039;t know how? <a href="https://codex.wordpress.org/Backing_Up_Your_Database" target="_blank">click here</a>)</li>
 			<li>Using your FTP client, <strong>delete the old plugin directory</strong> from your server. <strong>DO NOT uninstall the plugin from your dashboard</strong></li>
