@@ -110,11 +110,6 @@ class WPAS_Migrate_Tickets {
 
 	public function convert_tickets() {
 
-		var_dump( $this->get_converted_tickets_count() );
-		var_dump( $this->get_current_page() );
-		var_dump( $this->limit );
-//		exit;
-
 		if ( ! empty( $this->tickets ) ) {
 
 			foreach ( $this->tickets as $ticket ) {
