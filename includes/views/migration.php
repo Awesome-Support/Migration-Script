@@ -34,12 +34,10 @@
 			echo '<p>If you were using custom callbacks for your custom fields, please make sure those callback functions are still available.</p>';
 
 			echo '<textarea cols="150" rows="20">';
-			echo "add_action( 'plugins_loaded', 'wpas_user_custom_fields' );";
 			echo "
 /**
  * Register Awesome Support custom fields after the plugin is safely loaded.
- */
-function wpas_user_custom_fields() {\n\n";
+ */\n";
 			echo "if ( function_exists( 'wpas_add_custom_field' ) && function_exists( 'wpas_add_custom_taxonomy' ) ):\n\n";
 
 			foreach ( $custom_fields as $custom_field ) {
@@ -76,7 +74,7 @@ function wpas_user_custom_fields() {\n\n";
 
 			}
 
-			echo "endif;\n}";
+			echo "endif;";
 
 			echo '</textarea>';
 
