@@ -30,7 +30,7 @@
 			echo '<p>You have no custom fields. Nothing to do here.</p>';
 		} else {
 
-			echo '<p>In order to migrate your custom fields, you need to add the following bits of code to your theme&#039;s <code>functions.php</code> file.</p>';
+			echo '<p>In order to migrate your custom fields, you need to copy/paste the following bits of code to your theme&#039;s <code>functions.php</code> file.</p>';
 			echo '<p>If you were using custom callbacks for your custom fields, please make sure those callback functions are still available.</p>';
 
 			echo '<textarea cols="150" rows="20">';
