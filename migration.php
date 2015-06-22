@@ -55,9 +55,9 @@ add_action( 'admin_print_scripts', 'asm_load_scripts' );
  * @return bool    Whether or not the script was enqueued
  */
 function asm_load_scripts() {
-
-	wp_enqueue_script( 'asm_migration', ASM_URL . 'migration.js', array( 'jquery' ), ASM_VERSION, true );
-
+	if ( isset( $_GET['page'] ) && 'wpas-upgrade' === $_GET['page'] ) {
+		wp_enqueue_script( 'asm_migration', ASM_URL . 'migration.js', array( 'jquery' ), ASM_VERSION, true );
+	}
 }
 
 /**
