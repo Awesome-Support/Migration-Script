@@ -294,14 +294,6 @@ class WPAS_Migrate_Ticket extends WPAS_Migrate_Tickets  {
 
 	}
 
-	public function convert_custom_fields() {
-
-//		global $wpas;
-
-//		$wpas->getCustomFields();
-//		$wpas->getTaxonomies();
-	}
-
 	/**
 	 * Update the ticket history.
 	 *
@@ -362,6 +354,9 @@ class WPAS_Migrate_Ticket extends WPAS_Migrate_Tickets  {
 
 					if ( $meta_id ) {
 						delete_post_meta( $this->ticket_id, $old, $value );
+						$this->increment_custom_fields();
+					} else {
+						$this->error( sprintf( 'Can&#039;t migrate custom field %s for ticket %d', $custom_field['name'], $this->ticket_id ) );
 					}
 				}
 
