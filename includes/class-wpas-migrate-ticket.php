@@ -17,6 +17,13 @@ class WPAS_Migrate_Ticket extends WPAS_Migrate_Tickets  {
 	
 	public function __construct( $ticket ) {
 
+		/**
+		 * List all custom fields.
+		 */
+		global $wpas;
+
+		$this->custom_fields = $wpas->getCustomFields();
+
 		if ( is_object( $ticket ) && is_a( $ticket, 'WP_Post' ) ) {
 			$this->ticket_id = $ticket->ID;
 		} else {
@@ -32,6 +39,7 @@ class WPAS_Migrate_Ticket extends WPAS_Migrate_Tickets  {
 		$this->update_history();
 		$this->update_envato();
 		$this->move_attachments();
+		$this->migrate_custom_fields();
 
 	}
 
@@ -336,6 +344,31 @@ class WPAS_Migrate_Ticket extends WPAS_Migrate_Tickets  {
 		/* If this is not an array then we have no attachments, return true as not migration it is not an error */
 
 		return true;
+	}
+
+	protected function migrate_custom_fields() {
+
+		if ( ! empty( $this->custom_fields ) ) {
+
+			foreach ( $this->custom_fields as $custom_field ) {
+
+				$old   = "wpas_{$custom_field['name']}";
+				$value = get_post_meta( $this->ticket_id, $old, true );
+
+				if ( ! empty( $value ) ) {
+
+					$name    = "_wpas_{$custom_field['name']}";
+					$meta_id = add_post_meta( $this->ticket_id, $name, $value, true );
+
+					if ( $meta_id ) {
+						delete_post_meta( $this->ticket_id, $old, $value );
+					}
+				}
+
+			}
+
+		}
+
 	}
 
 }
