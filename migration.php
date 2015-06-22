@@ -58,6 +58,7 @@ if ( isset( $_GET['page'] ) && 'wpas-upgrade' === filter_input( INPUT_GET, 'page
 	 require_once( ASM_PATH . 'includes/class-wpas-migrate-tickets.php' );
 	 require_once( ASM_PATH . 'includes/class-wpas-migrate-ticket.php' );
 	 require_once( ASM_PATH . 'includes/class-wpas-migrate-attachment.php' );
+	 require_once( ASM_PATH . 'includes/class-wpas-migrate-custom-fields.php' );
 
 	add_action( 'init', 'asm_register_taxonomies' );
 	/**

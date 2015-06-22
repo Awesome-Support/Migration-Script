@@ -1,7 +1,7 @@
 <?php add_thickbox(); ?>
 <div class="wrap">
 	<div id="icon-tools" class="icon32"></div>
-	<h2>Awesome Support Migration</h2>
+	<h2>Step 1: Awesome Support Migration</h2>
 
 	<?php if (  isset( $_GET['do'] ) && 'upgrade' === filter_input( INPUT_GET, 'do', FILTER_SANITIZE_STRING ) && isset( $_GET['_nonce'] ) && wp_verify_nonce( $_GET['_nonce'], 'upgrade' ) ):
 
@@ -29,4 +29,70 @@
 		<?php }
 
 	endif; ?>
+
+	<h2>Step 2: Custom Fields Migration</h2>
+
+	<?php
+	global $wpas;
+
+	$custom_fields     = $wpas->getCustomFields();
+	$custom_taxonomies = $wpas->getTaxonomies();
+
+	if ( empty( $custom_fields ) && empty( $custom_taxonomies ) ) {
+		echo '<p>You have no custom fields. Nothing to do here.</p>';
+	} else {
+
+		echo '<p>In order to migrate your custom fields, you need to add the following bits of code to your theme&#039;s <code>functions.php</code> file.</p>';
+		echo '<p>If you were using custom callbacks for your custom fields, please make sure those callback functions are still available.</p>';
+
+		echo '<textarea cols="150" rows="20">';
+		echo "add_action( 'plugins_loaded', 'wpas_user_custom_fields' );";
+		echo "
+/**
+ * Register Awesome Support custom fields after the plugin is safely loaded.
+ */
+function wpas_user_custom_fields() {\n\n";
+		echo "if ( function_exists( 'wpas_add_custom_field' ) && function_exists( 'wpas_add_custom_taxonomy' ) ):\n\n";
+
+		foreach ( $custom_fields as $custom_field ) {
+
+			if ( 'wpas_text_field_callback' === $custom_field['callback'] ) {
+				$custom_field['callback'] = 'text';
+			} elseif ( 'wpas_url_field_callback' === $custom_field['callback'] ) {
+				$custom_field['callback'] = 'url';
+			}
+
+			if ( ! isset( $custom_field['required'] ) ) {
+				$custom_field['required'] = 'false';
+			}
+
+			$custom_field['required'] = true === $custom_field['required'] ? 'true' : 'false';
+
+			echo "wpas_add_custom_field( '{$custom_field['name']}', array(
+	'callback'    => '{$custom_field['callback']}',
+	'placeholder' => '{$custom_field['label']}',
+	'required'    => {$custom_field['required']}
+) );\n\n";
+		}
+
+		foreach ( $custom_taxonomies as $custom_taxonomy ) {
+
+			$custom_taxonomy['required'] = true === $custom_taxonomy['required'] ? 'true' : false;
+
+			echo "wpas_add_custom_taxonomy( '{$custom_taxonomy['singular']}', array(
+	'label'    => '{$custom_taxonomy['label']}',
+	'singular' => '{$custom_taxonomy['singular']}',
+	'plural'   => '{$custom_taxonomy['plural']}',
+	'required' => {$custom_taxonomy['required']}
+) );\n\n";
+
+		}
+
+		echo "endif;\n}";
+
+		echo '</textarea>';
+
+	}
+	?>
+
 </div>
